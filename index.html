@@ -31,7 +31,6 @@ h1{margin-top:10px;font-size:22px;font-weight:700}
 <body>
 <div id="overlay" onclick="enterSite()">
 <p style="font-size:22px;font-weight:700;letter-spacing:3px">[ TAP TO ENTER ]</p>
-<p style="font-size:12px;color:#666;margin-top:12px">🎵 Dimas M - Kau Lukis Aku</p>
 </div>
 <div class="bg"></div>
 <div class="container">
@@ -53,7 +52,7 @@ h1{margin-top:10px;font-size:22px;font-weight:700}
 <div class="music" onclick="toggleMusic()"><i class="fas fa-music" id="musicIcon"></i></div>
 <audio id="audio" loop src="https://cdn.nekohime.site/file/5pzcd8sx.mp3"></audio>
 <script>
-const texts=["Welcome to my link","Kau lukis aku dengan cintamu","Contact me below"];
+const texts=["Welcome to my link","Find me on social media","Contact me below"];
 let count=0,idx=0,isDeleting=false;
 function type(){const full=texts[idx];let cur=isDeleting?full.substring(0,count--):full.substring(0,count++);document.getElementById("typing").innerHTML=cur;let speed=isDeleting?50:100;if(!isDeleting&&count===full.length+1){speed=1500;isDeleting=true}else if(isDeleting&&count===0){isDeleting=false;idx=(idx+1)%texts.length;speed=500}setTimeout(type,speed)}type();
 let playing=false;
