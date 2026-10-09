@@ -8,25 +8,31 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#050505;color:white;min-height:100vh;display:flex;justify-content:center;align-items:center;position:relative}
+body{background:#050505;color:white;min-height:100vh;display:flex;justify-content:center;align-items:center;position:relative;padding:25px 0}
 .bg{position:fixed;width:100%;height:100%;background:radial-gradient(circle at 30% 20%,#1a1a40 0%,transparent 50%),radial-gradient(circle at 80% 80%,#4a1942 0%,transparent 50%),#050505;z-index:-1}
-.container{width:90%;max-width:380px;text-align:center;padding:30px 20px;background:rgba(255,255,255,0.05);backdrop-filter:blur(15px);border-radius:25px;border:1px solid rgba(255,255,255,0.1);box-shadow:0 10px 40px rgba(0,0,0,0.5);animation:fadeIn 1s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-.avatar{width:110px;height:110px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 20px rgba(255,255,255,0.4);object-fit:cover;animation:float 3s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-h1{margin-top:15px;font-size:24px;font-weight:700}
-.type{color:#aaa;font-size:13px;height:20px;margin:5px 0 20px 0}
-.links{display:flex;flex-direction:column;gap:14px}
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:15px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:14px;color:white;text-decoration:none;font-weight:600;transition:0.3s}
-.btn:hover{transform:scale(1.03);background:rgba(255,255,255,0.15)}
+.container{width:90%;max-width:380px;text-align:center;padding:25px 18px;background:rgba(255,255,255,0.05);backdrop-filter:blur(15px);border-radius:25px;border:1px solid rgba(255,255,255,0.1);box-shadow:0 10px 40px rgba(0,0,0,0.5)}
+.avatar{width:95px;height:95px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 20px rgba(255,255,255,0.4);object-fit:cover}
+h1{margin-top:10px;font-size:22px;font-weight:700}
+.type{color:#aaa;font-size:12px;height:18px;margin:4px 0 16px 0}
+.links{display:flex;flex-direction:column;gap:9px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:13px;color:white;text-decoration:none;font-weight:600;transition:0.3s;font-size:12.5px}
+.btn:hover{transform:scale(1.03)}
 .btn.tele:hover{background:#229ED9;border-color:#229ED9}
 .btn.insta:hover{background:linear-gradient(45deg,#f09433,#dc2743);border-color:transparent}
-.btn i{font-size:20px}
-.music{position:fixed;bottom:20px;right:20px;width:50px;height:50px;background:white;color:black;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;animation:pulse 2s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,0.7)}70%{box-shadow:0 0 0 10px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+.btn.wa:hover{background:#25D366;border-color:#25D366}
+.btn.wa2:hover{background:#128C7E;border-color:#128C7E}
+.btn.x:hover{background:white;color:black}
+.btn.threads:hover{background:white;color:black}
+.btn.tiktok:hover{background:#ff0050;border-color:#ff0050}
+.music{position:fixed;bottom:18px;right:18px;width:48px;height:48px;background:white;color:black;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10}
+#overlay{position:fixed;inset:0;background:#050505;z-index:999;display:flex;flex-direction:column;justify-content:center;align-items:center;cursor:pointer;transition:0.8s}
 </style>
 </head>
 <body>
+<div id="overlay" onclick="enterSite()">
+<p style="font-size:22px;font-weight:700;letter-spacing:3px">[ TAP TO ENTER ]</p>
+<p style="font-size:12px;color:#666;margin-top:12px">🎵 Dimas M - Kau Lukis Aku</p>
+</div>
 <div class="bg"></div>
 <div class="container">
 <img class="avatar" src="https://cdn.nekohime.site/file/cnohs01y.jpeg">
@@ -34,30 +40,28 @@ h1{margin-top:15px;font-size:24px;font-weight:700}
 <div class="type" id="typing"></div>
 <div class="links">
 <a class="btn tele" href="https://t.me/tutuaja" target="_blank"><i class="fab fa-telegram"></i> Telegram Pribadi</a>
-<a class="btn insta" href="https://instagram.com/_gommybeer" target="_blank"><i class="fab fa-instagram"></i> @_gommybeer</a>
+<a class="btn insta" href="https://instagram.com/_gommybeer" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+<a class="btn x" href="https://x.com/_gommybeer" target="_blank"><i class="fab fa-x-twitter"></i> X / Twitter</a>
+<a class="btn threads" href="https://www.threads.com/@_gommybeer" target="_blank"><i class="fa-brands fa-threads"></i> Threads</a>
+<a class="btn tiktok" href="https://tiktok.com/@_gommybeer" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
 <a class="btn" href="https://t.me/allinfofajar" target="_blank"><i class="fas fa-bullhorn"></i> Channel Info</a>
+<a class="btn wa" href="https://whatsapp.com/channel/0029Vb8XqJ51CYoIXb5qQI2j" target="_blank"><i class="fab fa-whatsapp"></i> Channel WhatsApp</a>
+<a class="btn wa2" href="https://wa.me/6285181543592" target="_blank"><i class="fas fa-briefcase"></i> Contact Bisnis</a>
 </div>
-<p style="margin-top:20px;font-size:10px;color:#555">🎵 Dimas M - Kau Lukis Aku</p>
-<p style="margin-top:5px;font-size:11px;color:#666">© 2026 Fajar • Mendahara Ilir</p>
+<p style="margin-top:18px;font-size:10px;color:#555">© 2026 Fajar</p>
 </div>
-
 <div class="music" onclick="toggleMusic()"><i class="fas fa-music" id="musicIcon"></i></div>
 <audio id="audio" loop src="https://cdn.nekohime.site/file/5pzcd8sx.mp3"></audio>
-
 <script>
-const texts=["Welcome to my link","Kau lukis aku dengan cintamu","Mendahara Ilir"];
+const texts=["Welcome to my link","Kau lukis aku dengan cintamu","Contact me below"];
 let count=0,idx=0,isDeleting=false;
-function type(){const full=texts[idx];let current=isDeleting?full.substring(0,count--):full.substring(0,count++);document.getElementById("typing").innerHTML=current;let speed=isDeleting?50:100;if(!isDeleting&&count===full.length+1){speed=1500;isDeleting=true}else if(isDeleting&&count===0){isDeleting=false;idx=(idx+1)%texts.length;speed=500}setTimeout(type,speed)}type();
-
+function type(){const full=texts[idx];let cur=isDeleting?full.substring(0,count--):full.substring(0,count++);document.getElementById("typing").innerHTML=cur;let speed=isDeleting?50:100;if(!isDeleting&&count===full.length+1){speed=1500;isDeleting=true}else if(isDeleting&&count===0){isDeleting=false;idx=(idx+1)%texts.length;speed=500}setTimeout(type,speed)}type();
 let playing=false;
-function toggleMusic(){
-  const a=document.getElementById("audio");
-  const ic=document.getElementById("musicIcon");
-  if(!playing){a.play();ic.className="fas fa-pause";playing=true}
-  else{a.pause();ic.className="fas fa-music";playing=false}
-}
-// Autoplay saat klik pertama dimana saja (biar gak diblok browser)
-document.body.addEventListener('click',()=>{if(!playing){toggleMusic()}},{once:true});
+const audio=document.getElementById("audio");
+const icon=document.getElementById("musicIcon");
+const overlay=document.getElementById("overlay");
+function enterSite(){overlay.style.opacity="0";setTimeout(()=>overlay.style.display="none",800);audio.play();icon.className="fas fa-pause";playing=true;}
+function toggleMusic(){if(!playing){audio.play();icon.className="fas fa-pause";playing=true}else{audio.pause();icon.className="fas fa-music";playing=false}}
 </script>
 </body>
 </html>
