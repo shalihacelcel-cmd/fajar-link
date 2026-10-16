@@ -8,15 +8,48 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#050505;color:white;min-height:100vh;display:flex;justify-content:center;align-items:center;position:relative;padding:25px 0}
-.bg{position:fixed;width:100%;height:100%;background:radial-gradient(circle at 30% 20%,#1a1a40 0%,transparent 50%),radial-gradient(circle at 80% 80%,#4a1942 0%,transparent 50%),#050505;z-index:-1}
-.container{width:90%;max-width:380px;text-align:center;padding:25px 18px;background:rgba(255,255,255,0.05);backdrop-filter:blur(15px);border-radius:25px;border:1px solid rgba(255,255,255,0.1);box-shadow:0 10px 40px rgba(0,0,0,0.5)}
-.avatar{width:95px;height:95px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 20px rgba(255,255,255,0.4);object-fit:cover}
-h1{margin-top:10px;font-size:22px;font-weight:700}
-.type{color:#aaa;font-size:12px;height:18px;margin:4px 0 16px 0}
+body{background:#050505;color:white;min-height:100vh;display:flex;justify-content:center;align-items:center;position:relative;padding:25px 0;overflow:hidden}
+.bg{position:fixed;inset:0;background:#050505;z-index:-1;overflow:hidden}
+.bg::before{
+  content:'';
+  position:absolute;
+  width:700px;height:700px;
+  background:radial-gradient(circle,#7c3aed 0%,transparent 70%);
+  top:-150px;left:-150px;
+  filter:blur(80px);
+  opacity:0.8;
+  animation: move 10s ease-in-out infinite alternate;
+}
+.bg::after{
+  content:'';
+  position:absolute;
+  width:600px;height:600px;
+  background:radial-gradient(circle,#ec4899 0%,#be185d 30%,transparent 70%);
+  bottom:-100px;right:-100px;
+  filter:blur(90px);
+  opacity:0.7;
+  animation: move2 12s ease-in-out infinite alternate;
+}
+.blob3{
+  position:absolute;
+  width:500px;height:500px;
+  background:radial-gradient(circle,#06b6d4 0%,transparent 70%);
+  top:50%;left:40%;
+  filter:blur(100px);
+  opacity:0.5;
+  animation: move3 15s ease-in-out infinite alternate;
+}
+@keyframes move{0%{transform:translate(0,0) scale(1)}100%{transform:translate(120px,80px) scale(1.1)}}
+@keyframes move2{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-100px,-70px) scale(1.2)}}
+@keyframes move3{0%{transform:translate(-50%,-50%) scale(1)}100%{transform:translate(-30%,-40%) scale(1.15)}}
+
+.container{width:90%;max-width:380px;text-align:center;padding:25px 18px;background:rgba(255,255,255,0.06);backdrop-filter:blur(20px);border-radius:25px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 10px 40px rgba(0,0,0,0.5);position:relative;z-index:1}
+.avatar{width:95px;height:95px;border-radius:50%;border:3px solid rgba(255,255,255,0.8);box-shadow:0 0 25px rgba(124,58,237,0.5);object-fit:cover}
+h1{margin-top:12px;font-size:22px;font-weight:700}
+.type{color:#bbb;font-size:12px;height:18px;margin:4px 0 16px 0}
 .links{display:flex;flex-direction:column;gap:9px}
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:13px;color:white;text-decoration:none;font-weight:600;transition:0.3s;font-size:12.5px}
-.btn:hover{transform:scale(1.03)}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);border-radius:13px;color:white;text-decoration:none;font-weight:600;transition:0.3s;font-size:12.5px}
+.btn:hover{transform:scale(1.03);background:rgba(255,255,255,0.12)}
 .btn.tele:hover{background:#229ED9;border-color:#229ED9}
 .btn.insta:hover{background:linear-gradient(45deg,#f09433,#dc2743);border-color:transparent}
 .btn.wa:hover{background:#25D366;border-color:#25D366}
@@ -24,17 +57,12 @@ h1{margin-top:10px;font-size:22px;font-weight:700}
 .btn.x:hover{background:white;color:black}
 .btn.threads:hover{background:white;color:black}
 .btn.tiktok:hover{background:#ff0050;border-color:#ff0050}
-.music{position:fixed;bottom:18px;right:18px;width:48px;height:48px;background:white;color:black;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10}
-#overlay{position:fixed;inset:0;background:#050505;z-index:999;display:flex;flex-direction:column;justify-content:center;align-items:center;cursor:pointer;transition:0.8s}
 </style>
 </head>
 <body>
-<div id="overlay" onclick="enterSite()">
-<p style="font-size:22px;font-weight:700;letter-spacing:3px">[ TAP TO ENTER ]</p>
-</div>
-<div class="bg"></div>
+<div class="bg"><div class="blob3"></div></div>
 <div class="container">
-<img class="avatar" src="https://cdn.nekohime.site/file/cnohs01y.jpeg">
+<img class="avatar" src="https://gachi.gay/A4F7mx">
 <h1>Fajar</h1>
 <div class="type" id="typing"></div>
 <div class="links">
@@ -47,20 +75,9 @@ h1{margin-top:10px;font-size:22px;font-weight:700}
 <a class="btn wa" href="https://whatsapp.com/channel/0029Vb8XqJ51CYoIXb5qQI2j" target="_blank"><i class="fab fa-whatsapp"></i> Channel WhatsApp</a>
 <a class="btn wa2" href="https://wa.me/6285181543592" target="_blank"><i class="fas fa-briefcase"></i> Contact Bisnis</a>
 </div>
-<p style="margin-top:18px;font-size:10px;color:#555">© 2022 - 2026 Fajar</p>
+<p style="margin-top:18px;font-size:10px;color:#666">© 2022 - 2026 Fajar</p>
 </div>
-<div class="music" onclick="toggleMusic()"><i class="fas fa-music" id="musicIcon"></i></div>
-<audio id="audio" loop src="https://cdn.nekohime.site/file/5pzcd8sx.mp3"></audio>
 <script>
 const texts=["Welcome to my link","Find me on social media","Contact me below"];
 let count=0,idx=0,isDeleting=false;
-function type(){const full=texts[idx];let cur=isDeleting?full.substring(0,count--):full.substring(0,count++);document.getElementById("typing").innerHTML=cur;let speed=isDeleting?50:100;if(!isDeleting&&count===full.length+1){speed=1500;isDeleting=true}else if(isDeleting&&count===0){isDeleting=false;idx=(idx+1)%texts.length;speed=500}setTimeout(type,speed)}type();
-let playing=false;
-const audio=document.getElementById("audio");
-const icon=document.getElementById("musicIcon");
-const overlay=document.getElementById("overlay");
-function enterSite(){overlay.style.opacity="0";setTimeout(()=>overlay.style.display="none",800);audio.play();icon.className="fas fa-pause";playing=true;}
-function toggleMusic(){if(!playing){audio.play();icon.className="fas fa-pause";playing=true}else{audio.pause();icon.className="fas fa-music";playing=false}}
-</script>
-</body>
-</html>
+function type(){const full=texts[idx];let cur=isDeleting?full.substring(0,count--):full.substring(0,count++);document.getElementById("typing").innerHTML=cur;let speed=isDeleting?50:100;if(!isDeleting&&count===full.length+1){speed=1500;isDeleting=true}else if(isDeleting&&count===0){isDeleting=false;
