@@ -9,14 +9,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
 body{background:#000;color:white;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:25px 0}
-.container{width:90%;max-width:380px;text-align:center;padding:25px 18px;background:rgba(255,255,255,0.06);backdrop-filter:blur(20px);border-radius:25px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 10px 40px rgba(0,0,0,0.5)}
+.container{width:90%;max-width:380px;text-align:center;padding:25px 18px;background:rgba(255,255,255,0.06);backdrop-filter:blur(20px);border-radius:25px;border:1px solid rgba(255,255,255,0.12)}
 .avatar{width:95px;height:95px;border-radius:50%;border:3px solid #fff;object-fit:cover}
-h1{margin-top:12px;font-size:22px;font-weight:700}
+h1{margin-top:12px;font-size:22px}
 .type{color:#bbb;font-size:12px;height:18px;margin:4px 0 16px 0}
 .links{display:flex;flex-direction:column;gap:9px}
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);border-radius:13px;color:white;text-decoration:none;font-weight:600;transition:.3s;font-size:12.5px}
-.btn:hover{transform:scale(1.03);background:rgba(255,255,255,0.12)}
-.music{position:fixed;bottom:18px;right:18px;width:48px;height:48px;background:white;color:black;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);border-radius:13px;color:white;text-decoration:none;font-weight:600;font-size:12.5px}
+.music{position:fixed;bottom:18px;right:18px;width:48px;height:48px;background:white;color:black;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .music.playing{animation:spin 3s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
@@ -27,7 +26,7 @@ h1{margin-top:12px;font-size:22px;font-weight:700}
 <h1>Fajar</h1>
 <div class="type" id="typing"></div>
 <div class="links">
-<a class="btn" href="https://t.me/tutuaja" target="_blank"><i class="fab fa-telegram"></i> Telegram Pribadi</a>
+<a class="btn" href="https://t.me/tutuaja" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
 <a class="btn" href="https://instagram.com/_gommybeer" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
 <a class="btn" href="https://x.com/_gommybeer" target="_blank"><i class="fab fa-x-twitter"></i> X / Twitter</a>
 <a class="btn" href="https://www.threads.com/@_gommybeer" target="_blank"><i class="fa-brands fa-threads"></i> Threads</a>
@@ -36,17 +35,41 @@ h1{margin-top:12px;font-size:22px;font-weight:700}
 <a class="btn" href="https://whatsapp.com/channel/0029Vb8XqJ51CYoIXb5qQI2j" target="_blank"><i class="fab fa-whatsapp"></i> Channel WhatsApp</a>
 <a class="btn" href="https://wa.me/6285181543592" target="_blank"><i class="fas fa-briefcase"></i> Contact Bisnis</a>
 </div>
-<p style="margin-top:18px;font-size:10px;color:#666">© 2022 - 2026 Fajar</p>
 </div>
-<div class="music" id="musicBtn" onclick="toggleMusic()"><i class="fas fa-music" id="musicIcon"></i></div>
-<audio id="audio" loop src="https://gachi.gay/BtdRfO"></audio>
+<div class="music" id="musicBtn"><i class="fas fa-music" id="musicIcon"></i></div>
+<audio id="audio" loop preload="auto" src="https://gachi.gay/BtdRfO"></audio>
 <script>
 const texts=["Welcome to my link","Find me on social media","Contact me below"];
 let count=0,idx=0,isDeleting=false;
 function type(){const f=texts[idx];let c=isDeleting?f.substring(0,count--):f.substring(0,count++);document.getElementById("typing").innerHTML=c;let s=isDeleting?50:100;if(!isDeleting&&count===f.length+1){s=1500;isDeleting=true}else if(isDeleting&&count===0){isDeleting=false;idx=(idx+1)%texts.length;s=500}setTimeout(type,s)}type();
-let playing=false;const audio=document.getElementById("audio"),icon=document.getElementById("musicIcon"),btn=document.getElementById("musicBtn");
-function toggleMusic(){if(!playing){audio.play();icon.className="fas fa-pause";btn.classList.add("playing");playing=true}else{audio.pause();icon.className="fas fa-music";btn.classList.remove("playing");playing=false}}
-document.body.addEventListener('click',function firstPlay(){if(!playing)toggleMusic();document.body.removeEventListener('click',firstPlay)},{once:true});
+
+const audio=document.getElementById("audio"),icon=document.getElementById("musicIcon"),btn=document.getElementById("musicBtn");
+let playing=false, manualPause=false;
+
+function updateUI(isPlay){
+  playing=isPlay;
+  if(isPlay){icon.className="fas fa-pause";btn.classList.add("playing")}
+  else{icon.className="fas fa-music";btn.classList.remove("playing")}
+}
+function playMusic(){audio.play().then(()=>updateUI(true)).catch(()=>{})}
+function pauseMusic(){audio.pause();updateUI(false)}
+
+// Auto ON saat load
+window.addEventListener("load",playMusic);
+document.addEventListener("click",function autoFirst(){if(!playing){playMusic()}document.removeEventListener("click",autoFirst)},{once:true});
+
+// Klik tombol = pause manual
+btn.addEventListener("click",()=>{if(playing){manualPause=true;pauseMusic()}else{manualPause=false;playMusic()}});
+
+// Auto OFF saat pindah tab / minimize
+document.addEventListener("visibilitychange",()=>{
+  if(document.hidden){if(playing)pauseMusic()}
+  else{if(!manualPause)playMusic()}
+});
+
+// Auto OFF saat keluar web / close tab
+window.addEventListener("beforeunload",()=>{audio.pause();});
+window.addEventListener("pagehide",()=>{audio.pause();});
 </script>
 </body>
 </html>
