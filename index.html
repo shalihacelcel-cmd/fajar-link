@@ -40,37 +40,20 @@ h1{margin-top:12px;font-size:22px}
 </div>
 </div>
 <div class="music" id="musicBtn"><i class="fas fa-music" id="musicIcon"></i></div>
-<audio id="audio" loop preload="auto" src="https://d.uguu.se/DKSNCcHBcVzP.mp3"></audio>
+<audio id="audio" loop preload="auto" src="https://h.uguu.se/CyiDyYPawkuR.mp3"></audio>
 <script>
 const texts=["Welcome to my link","Find me on social media","Contact me below"];
 let count=0,idx=0,isDeleting=false;
 function type(){const f=texts[idx];let c=isDeleting?f.substring(0,count--):f.substring(0,count++);document.getElementById("typing").innerHTML=c;let s=isDeleting?50:100;if(!isDeleting&&count===f.length+1){s=1500;isDeleting=true}else if(isDeleting&&count===0){isDeleting=false;idx=(idx+1)%texts.length;s=500}setTimeout(type,s)}type();
-
 const audio=document.getElementById("audio"),icon=document.getElementById("musicIcon"),btn=document.getElementById("musicBtn");
 let playing=false, manualPause=false;
-
-function updateUI(isPlay){
-  playing=isPlay;
-  if(isPlay){icon.className="fas fa-pause";btn.classList.add("playing")}
-  else{icon.className="fas fa-music";btn.classList.remove("playing")}
-}
+function updateUI(isPlay){playing=isPlay;if(isPlay){icon.className="fas fa-pause";btn.classList.add("playing")}else{icon.className="fas fa-music";btn.classList.remove("playing")}}
 function playMusic(){audio.play().then(()=>updateUI(true)).catch(()=>{})}
 function pauseMusic(){audio.pause();updateUI(false)}
-
-// Auto ON saat load
 window.addEventListener("load",playMusic);
 document.addEventListener("click",function autoFirst(){if(!playing){playMusic()}document.removeEventListener("click",autoFirst)},{once:true});
-
-// Klik tombol = pause manual
 btn.addEventListener("click",()=>{if(playing){manualPause=true;pauseMusic()}else{manualPause=false;playMusic()}});
-
-// Auto OFF saat pindah tab / minimize
-document.addEventListener("visibilitychange",()=>{
-  if(document.hidden){if(playing)pauseMusic()}
-  else{if(!manualPause)playMusic()}
-});
-
-// Auto OFF saat keluar web / close tab
+document.addEventListener("visibilitychange",()=>{if(document.hidden){if(playing)pauseMusic()}else{if(!manualPause)playMusic()}});
 window.addEventListener("beforeunload",()=>{audio.pause();});
 window.addEventListener("pagehide",()=>{audio.pause();});
 </script>
